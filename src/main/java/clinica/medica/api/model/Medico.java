@@ -22,4 +22,8 @@ public class Medico {
 
     private String cpf;
 
+    private Ramo ramo;
+
+    private Endereco endereco;
+
 }

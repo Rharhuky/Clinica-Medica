@@ -12,10 +12,10 @@ import java.awt.*;
 @RequestMapping(path = "medicos")
 public class MedicoController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.POST)
     public String cadastrarMedico(@RequestBody Medico novoMedico){
 
-        return String.format("Médico %s cadastrado com <strong>sucesso</strong>", novoMedico.getNome());
+        return "Medico: " + novoMedico.getNome() + " " + novoMedico.getRamo();
     }
 
 }
