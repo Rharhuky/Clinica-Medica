@@ -1,7 +1,9 @@
 package clinica.medica.api.controller;
 
 import clinica.medica.api.model.Medico;
+import clinica.medica.api.model.dto.MedicoDTO;
 import clinica.medica.api.repository.MedicoRepository;
+import clinica.medica.api.service.MedicoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,23 +19,26 @@ import java.util.List;
 @RequestMapping(path = "medicos")
 public class MedicoController {
 
-    private final MedicoRepository medicoRepository;
+    private final MedicoService medicoService;
 
     @RequestMapping(method = RequestMethod.POST)
     @Transactional
-    public ResponseEntity<?> cadastrarMedico(@RequestBody Medico novoMedico){
+    public ResponseEntity<?> cadastrarMedico(@RequestBody MedicoDTO novoMedico){
+       this.medicoService.salvarMedico(novoMedico);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.medicoRepository.save(novoMedico));
+        return ResponseEntity.status(HttpStatus.CREATED).body("Salvo com sucesso");
     }
 
     @GetMapping("/{cpf}")
     public Medico verMedicoPeloCpf(@PathVariable String cpf){
-        return this.medicoRepository.findByCpf(cpf).orElseThrow(() -> new RuntimeException("Medico NOT FOUND"));
-    }
 
+        return null;
+
+    }
+    /**
     @GetMapping
     public List<Medico> verTodosMedicos(){
         return this.medicoRepository.findAll();
     }
-
+    */
 }

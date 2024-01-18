@@ -1,4 +1,21 @@
 package clinica.medica.api.model.dto;
 
-public record EnderecoDTO(String logradouro, String bairro, String cep, String cidade, String numero){}
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class EnderecoDTO{
+
+    private String logradouro;
+    private String bairro;
+    private String cep;
+    private String cidade;
+    private String numero;
+
+
+}
 

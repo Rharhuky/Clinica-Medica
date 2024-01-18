@@ -1,5 +1,6 @@
 package clinica.medica.api.model;
 
+import clinica.medica.api.model.dto.MedicoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
