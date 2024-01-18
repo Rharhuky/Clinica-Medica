@@ -13,13 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Entity
-@Table(name = "enderecos")
+@Embeddable
 public class Endereco {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long enderecoId;
     private String logradouro;
     private String bairro;
     private String cep;

@@ -22,8 +22,13 @@ public class Medico {
 
     private String cpf;
 
+    private String crm;
+
+    private String email;
+    @Enumerated(value = EnumType.STRING)
     private Ramo ramo;
 
+    @Embedded
     private Endereco endereco;
 
 }
