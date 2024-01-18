@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
+import java.util.List;
 
 @RequiredArgsConstructor
 
@@ -25,9 +26,14 @@ public class MedicoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.medicoRepository.save(novoMedico));
     }
 
-    @GetMapping
-    public Medico verMedicoPeloCpf(){
+    @GetMapping("/{cpf}")
+    public Medico verMedicoPeloCpf(@PathVariable String cpf){
         return this.medicoRepository.findByCpf(cpf).orElseThrow(() -> new RuntimeException("Medico NOT FOUND"));
+    }
+
+    @GetMapping
+    public List<Medico> verTodosMedicos(){
+        return this.medicoRepository.findAll();
     }
 
 }
