@@ -6,6 +6,9 @@ import clinica.medica.api.model.dto.MedicoDTO;
 import clinica.medica.api.repository.MedicoRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,9 +34,15 @@ public class MedicoServiceImpl implements MedicoService{
     }
 
     @Override
-    public List<DadosListagemMedicos> verTodosMedicos() {
+    public List<DadosListagemMedicos> verTodosMedicos(String ordenarPelo, String ordenarDeForma, int numeroPagina, int tamanhoPagina) {
+        Sort sortBy =
+                ordenarDeForma.equalsIgnoreCase(Sort.Direction.ASC.name())
+                        ? Sort.by(ordenarPelo).ascending()
+                        : Sort.by(ordenarPelo).descending();
 
-        return this.medicoRepository.findAll()
+        Pageable paginacaoCustomizada = PageRequest.of(numeroPagina, tamanhoPagina, sortBy);
+
+        return this.medicoRepository.findAll(paginacaoCustomizada)
                 .stream().
                 map((medico -> new DadosListagemMedicos(medico.getNome(),
                         medico.getEmail(),

@@ -9,7 +9,7 @@ public interface MedicoService {
 
     void salvarMedico(MedicoDTO medicoDTO);
 
-    List<DadosListagemMedicos> verTodosMedicos();
+    List<DadosListagemMedicos> verTodosMedicos(String ordenarPelo, String ordenarDeForma, int numeroPagina, int tamanhoPagina);
 
 
 
