@@ -1,5 +1,6 @@
 package clinica.medica.api.service;
 
+import clinica.medica.api.controller.DadosAtualizarMedico;
 import clinica.medica.api.model.dto.DadosListagemMedicos;
 import clinica.medica.api.model.dto.MedicoDTO;
 
@@ -11,6 +12,10 @@ public interface MedicoService {
 
     List<DadosListagemMedicos> verTodosMedicos(String ordenarPelo, String ordenarDeForma, int numeroPagina, int tamanhoPagina);
 
+    void atualizarDadosMedico(DadosAtualizarMedico dadosAtualizarMedico);
 
+    void deletarMedicoPeloId(Long id);
+
+    void inativarMedicoPeloCpf(String cpf);
 
 }

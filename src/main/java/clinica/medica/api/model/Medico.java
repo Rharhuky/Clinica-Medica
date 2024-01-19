@@ -28,6 +28,8 @@ public class Medico {
 
     private String celular;
 
+    private boolean ativo;
+
     private String email;
     @Enumerated(value = EnumType.STRING)
     private Ramo ramo;

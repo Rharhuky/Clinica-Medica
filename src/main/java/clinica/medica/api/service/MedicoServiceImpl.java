@@ -1,5 +1,7 @@
 package clinica.medica.api.service;
 
+import clinica.medica.api.controller.DadosAtualizarMedico;
+import clinica.medica.api.model.Endereco;
 import clinica.medica.api.model.Medico;
 import clinica.medica.api.model.dto.DadosListagemMedicos;
 import clinica.medica.api.model.dto.MedicoDTO;
@@ -44,11 +46,43 @@ public class MedicoServiceImpl implements MedicoService{
 
         return this.medicoRepository.findAll(paginacaoCustomizada)
                 .stream().
-                map((medico -> new DadosListagemMedicos(medico.getNome(),
+                map((medico -> new DadosListagemMedicos(
+                        medico.getMedicoId(),
+                        medico.getNome(),
                         medico.getEmail(),
                         medico.getCrm(),
                         medico.getRamo()))).toList();
 
     }
 
+    @Override
+    @Transactional
+    public void atualizarDadosMedico(DadosAtualizarMedico dadosAtualizarMedico) {
+
+        Medico medico = this.medicoRepository.findById(dadosAtualizarMedico.id()).orElseThrow(RuntimeException::new);
+
+        if(dadosAtualizarMedico.nome() != null)
+            medico.setNome(dadosAtualizarMedico.nome());
+
+        if(dadosAtualizarMedico.celular() != null)
+            medico.setCelular(dadosAtualizarMedico.celular());
+
+        if(dadosAtualizarMedico.endereco() != null)
+            medico.setEndereco(modelMapper.map(dadosAtualizarMedico.endereco(), Endereco.class));
+
+
+    }
+
+    @Override
+    @Transactional
+    public void deletarMedicoPeloId(Long id) {
+        this.medicoRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void inativarMedicoPeloCpf(String cpf) {
+        Medico medico = this.medicoRepository.findByCpf(cpf).orElseThrow(RuntimeException::new);
+        medico.setAtivo(false);
+    }
 }
