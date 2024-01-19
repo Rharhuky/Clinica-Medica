@@ -4,6 +4,7 @@ import clinica.medica.api.model.Medico;
 import clinica.medica.api.model.dto.MedicoDTO;
 import clinica.medica.api.repository.MedicoRepository;
 import clinica.medica.api.service.MedicoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +24,17 @@ public class MedicoController {
 
     @RequestMapping(method = RequestMethod.POST)
     @Transactional
-    public ResponseEntity<?> cadastrarMedico(@RequestBody MedicoDTO novoMedico){
+    public ResponseEntity<?> cadastrarMedico(@RequestBody @Valid MedicoDTO novoMedico){
        this.medicoService.salvarMedico(novoMedico);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Salvo com sucesso");
+    }
+
+    @GetMapping
+    public List<MedicoDTO> verTodosMedicos(){
+
+        return this.medicoService.verTodosMedicos();
+
     }
 
     @GetMapping("/{cpf}")
@@ -35,6 +43,7 @@ public class MedicoController {
         return null;
 
     }
+
     /**
     @GetMapping
     public List<Medico> verTodosMedicos(){

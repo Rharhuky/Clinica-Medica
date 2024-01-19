@@ -1,11 +1,6 @@
 package clinica.medica.api.config;
 
-import clinica.medica.api.model.Endereco;
-import clinica.medica.api.model.Medico;
-import clinica.medica.api.model.dto.EnderecoDTO;
-import clinica.medica.api.model.dto.MedicoDTO;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -26,6 +21,9 @@ public class Configuracao implements WebMvcConfigurer {
     public ModelMapper modelMapper() {
 
         ModelMapper modelMapperEndereco = new ModelMapper();
+        /**por algum motivo nao funciona com record
+         *
+
         modelMapperEndereco.addMappings(new PropertyMap<EnderecoDTO, Endereco>() {
             @Override
             protected void configure() {
@@ -40,9 +38,7 @@ public class Configuracao implements WebMvcConfigurer {
         });
 
         modelMapperEndereco.addMappings(new PropertyMap<MedicoDTO, Medico>() {
-            /**
-             * por algum motivo nao funciona com record
-             */
+
             @Override
             protected void configure() {
 
@@ -54,7 +50,7 @@ public class Configuracao implements WebMvcConfigurer {
 
             }
         });
-
+        */
         return modelMapperEndereco;
     }
 

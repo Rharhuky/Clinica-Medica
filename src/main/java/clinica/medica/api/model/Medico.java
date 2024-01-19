@@ -2,6 +2,7 @@ package clinica.medica.api.model;
 
 import clinica.medica.api.model.dto.MedicoDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
@@ -24,6 +25,8 @@ public class Medico {
     private String cpf;
 
     private String crm;
+
+    private String celular;
 
     private String email;
     @Enumerated(value = EnumType.STRING)
