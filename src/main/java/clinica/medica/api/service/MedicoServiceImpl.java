@@ -1,6 +1,7 @@
 package clinica.medica.api.service;
 
 import clinica.medica.api.model.Medico;
+import clinica.medica.api.model.dto.DadosListagemMedicos;
 import clinica.medica.api.model.dto.MedicoDTO;
 import clinica.medica.api.repository.MedicoRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,17 +31,15 @@ public class MedicoServiceImpl implements MedicoService{
     }
 
     @Override
-    public List<MedicoDTO> verTodosMedicos() {
+    public List<DadosListagemMedicos> verTodosMedicos() {
 
-        return this.medicoRepository.findAll().
-                stream().
-                map((medico -> modelMapper.map(medico, MedicoDTO.class) )).toList();
-    }
+        return this.medicoRepository.findAll()
+                .stream().
+                map((medico -> new DadosListagemMedicos(medico.getNome(),
+                        medico.getEmail(),
+                        medico.getCrm(),
+                        medico.getRamo()))).toList();
 
-/*
-    private MedicoDTO mapToMedicoDTO(Medico medico){
-        return this.modelMapper.map(medico, MedicoDTO.class);
     }
-    */
 
 }

@@ -1,6 +1,7 @@
 package clinica.medica.api.controller;
 
 import clinica.medica.api.model.Medico;
+import clinica.medica.api.model.dto.DadosListagemMedicos;
 import clinica.medica.api.model.dto.MedicoDTO;
 import clinica.medica.api.repository.MedicoRepository;
 import clinica.medica.api.service.MedicoService;
@@ -29,25 +30,10 @@ public class MedicoController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Salvo com sucesso");
     }
-
     @GetMapping
-    public List<MedicoDTO> verTodosMedicos(){
+    public ResponseEntity<List<DadosListagemMedicos>> listarMedicos(){
 
-        return this.medicoService.verTodosMedicos();
-
+        return  ResponseEntity.ok( this.medicoService.verTodosMedicos() );
     }
 
-    @GetMapping("/{cpf}")
-    public Medico verMedicoPeloCpf(@PathVariable String cpf){
-
-        return null;
-
-    }
-
-    /**
-    @GetMapping
-    public List<Medico> verTodosMedicos(){
-        return this.medicoRepository.findAll();
-    }
-    */
 }
