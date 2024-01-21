@@ -1,4 +1,4 @@
-package clinica.medica.api.infra.repository.handler;
+package clinica.medica.api.infra.handler;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
