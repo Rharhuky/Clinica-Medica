@@ -18,7 +18,6 @@ import org.hibernate.validator.constraints.Normalized;
 @NoArgsConstructor
 public class MedicoDTO{
 
-    @NotNull
     private Long medicoId;
 
     @NotBlank

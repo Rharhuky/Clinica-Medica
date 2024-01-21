@@ -1,11 +1,12 @@
 package clinica.medica.api.service;
 
-import clinica.medica.api.controller.DadosAtualizarMedico;
+import clinica.medica.api.model.dto.DadosAtualizarMedico;
 import clinica.medica.api.model.Endereco;
 import clinica.medica.api.model.Medico;
 import clinica.medica.api.model.dto.DadosListagemMedicos;
 import clinica.medica.api.model.dto.MedicoDTO;
-import clinica.medica.api.repository.MedicoRepository;
+import clinica.medica.api.infra.repository.MedicoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
@@ -27,7 +28,7 @@ public class MedicoServiceImpl implements MedicoService{
     @Override
     @Transactional(readOnly = true)
     public MedicoDTO verMedico(Long id) {
-        return  modelMapper.map(this.medicoRepository.findById(id).orElseThrow(RuntimeException::new), MedicoDTO.class);
+        return  modelMapper.map(this.medicoRepository.findById(id).orElseThrow(EntityNotFoundException::new), MedicoDTO.class);
     }
 
     @Override

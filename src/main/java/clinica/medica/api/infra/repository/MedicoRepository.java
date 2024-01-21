@@ -1,4 +1,4 @@
-package clinica.medica.api.repository;
+package clinica.medica.api.infra.repository;
 
 import clinica.medica.api.model.Medico;
 import org.springframework.data.jpa.repository.JpaRepository;

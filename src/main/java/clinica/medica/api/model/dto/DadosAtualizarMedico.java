@@ -1,4 +1,4 @@
-package clinica.medica.api.controller;
+package clinica.medica.api.model.dto;
 
 import clinica.medica.api.model.dto.EnderecoDTO;
 import jakarta.validation.constraints.NotNull;

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 @Data
 @AllArgsConstructor
@@ -29,12 +30,6 @@ public class Medico {
     private String celular;
 
     private boolean ativo;
-
-    @PrePersist
-    private void setUp(){
-        this.ativo = true;
-    }
-
     private String email;
 
     @Enumerated(value = EnumType.STRING)
@@ -42,5 +37,10 @@ public class Medico {
 
     @Embedded
     private Endereco endereco;
+
+    @PrePersist
+    private void setUp(){
+        this.ativo = true;
+    }
 
 }

@@ -1,5 +1,6 @@
 package clinica.medica.api.controller;
 
+import clinica.medica.api.model.dto.DadosAtualizarMedico;
 import clinica.medica.api.model.dto.DadosListagemMedicos;
 import clinica.medica.api.model.dto.MedicoDTO;
 import clinica.medica.api.service.MedicoService;
