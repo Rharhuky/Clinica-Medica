@@ -24,18 +24,23 @@ public class MedicoServiceImpl implements MedicoService{
     private final MedicoRepository medicoRepository;
     private final ModelMapper modelMapper;
 
-
     @Override
-    @Transactional
-    public void salvarMedico(MedicoDTO medicoDTO) {
-
-        Medico novoMedico = this.modelMapper.map(medicoDTO, Medico.class);
-        System.out.println(novoMedico);
-        this.medicoRepository.save(novoMedico);
-
+    @Transactional(readOnly = true)
+    public MedicoDTO verMedico(Long id) {
+        return  modelMapper.map(this.medicoRepository.findById(id).orElseThrow(RuntimeException::new), MedicoDTO.class);
     }
 
     @Override
+    @Transactional
+    public MedicoDTO salvarMedico(MedicoDTO medicoDTO) {
+
+        Medico novoMedico = this.modelMapper.map(medicoDTO, Medico.class);
+        novoMedico = this.medicoRepository.save(novoMedico);
+        return modelMapper.map(novoMedico, MedicoDTO.class);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<DadosListagemMedicos> verTodosMedicos(String ordenarPelo, String ordenarDeForma, int numeroPagina, int tamanhoPagina) {
         Sort sortBy =
                 ordenarDeForma.equalsIgnoreCase(Sort.Direction.ASC.name())
@@ -76,13 +81,16 @@ public class MedicoServiceImpl implements MedicoService{
     @Override
     @Transactional
     public void deletarMedicoPeloId(Long id) {
+        Medico theMedico = this.medicoRepository.findById(id).orElseThrow(RuntimeException::new);
         this.medicoRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    public void inativarMedicoPeloCpf(String cpf) {
-        Medico medico = this.medicoRepository.findByCpf(cpf).orElseThrow(RuntimeException::new);
-        medico.setAtivo(false);
+    public void inativarMedicoPeloId(Long id) {
+
+        Medico theMedico = this.medicoRepository.findById(id).orElseThrow(RuntimeException::new);
+        this.medicoRepository.disableMedicoById(id);
+
     }
 }

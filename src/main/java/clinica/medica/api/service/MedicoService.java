@@ -8,14 +8,16 @@ import java.util.List;
 
 public interface MedicoService {
 
-    void salvarMedico(MedicoDTO medicoDTO);
+    MedicoDTO salvarMedico(MedicoDTO medicoDTO);
 
     List<DadosListagemMedicos> verTodosMedicos(String ordenarPelo, String ordenarDeForma, int numeroPagina, int tamanhoPagina);
+
+    MedicoDTO verMedico(Long id);
 
     void atualizarDadosMedico(DadosAtualizarMedico dadosAtualizarMedico);
 
     void deletarMedicoPeloId(Long id);
 
-    void inativarMedicoPeloCpf(String cpf);
+    void inativarMedicoPeloId(Long id);
 
 }

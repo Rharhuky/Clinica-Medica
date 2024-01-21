@@ -1,21 +1,15 @@
 package clinica.medica.api.controller;
 
-import clinica.medica.api.model.Medico;
 import clinica.medica.api.model.dto.DadosListagemMedicos;
 import clinica.medica.api.model.dto.MedicoDTO;
-import clinica.medica.api.repository.MedicoRepository;
 import clinica.medica.api.service.MedicoService;
-import jakarta.transaction.TransactionScoped;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.awt.*;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,11 +21,20 @@ public class MedicoController {
     private final MedicoService medicoService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> cadastrarMedico(@RequestBody @Valid MedicoDTO novoMedico){
-       this.medicoService.salvarMedico(novoMedico);
+    public ResponseEntity<?> cadastrarMedico(@RequestBody @Valid MedicoDTO novoMedico, UriComponentsBuilder uriComponentsBuilder){
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Salvo com sucesso");
+        var medico = this.medicoService.salvarMedico(novoMedico);
+        var uri = uriComponentsBuilder.path("/medicos/{id}").buildAndExpand(medico.getMedicoId()).toUri();
+
+        return ResponseEntity.created(uri).body(medico);
+
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MedicoDTO> listarMedico(@PathVariable Long id){
+        return ResponseEntity.ok(this.medicoService.verMedico(id));
+    }
+
     @GetMapping
     public ResponseEntity<List<DadosListagemMedicos>> listarMedicos(
             //@PageableDefault()
@@ -50,19 +53,18 @@ public class MedicoController {
 
         return ResponseEntity.ok(null);
     }
-/*
-    //@DeleteMapping("/{medicoId}")
-    public ResponseEntity<?> deletarMedico(@PathVariable(value = "medicoId") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarMedico(@PathVariable(name = "id") Long id){
+
+       this.medicoService.deletarMedicoPeloId(id);
+        return ResponseEntity.noContent().build();
     }
- */
 
-    @DeleteMapping("/{medicoCpf}")
-    public ResponseEntity<?> inativarMedico(@PathVariable(name = "medicoCpf") String cpf){
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> disableMedico(@PathVariable Long id){
 
-        this.medicoService.inativarMedicoPeloCpf(cpf);
-        return ResponseEntity.ok(null);
-
+        this.medicoService.inativarMedicoPeloId(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Disabled!");
     }
 
 }

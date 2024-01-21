@@ -1,6 +1,7 @@
 package clinica.medica.api.model.dto;
 
 import clinica.medica.api.model.Ramo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -16,6 +17,9 @@ import org.hibernate.validator.constraints.Normalized;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MedicoDTO{
+
+    @NotNull
+    private Long medicoId;
 
     @NotBlank
     private String nome;

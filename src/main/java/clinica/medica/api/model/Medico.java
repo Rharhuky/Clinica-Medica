@@ -30,7 +30,13 @@ public class Medico {
 
     private boolean ativo;
 
+    @PrePersist
+    private void setUp(){
+        this.ativo = true;
+    }
+
     private String email;
+
     @Enumerated(value = EnumType.STRING)
     private Ramo ramo;
 
