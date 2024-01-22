@@ -1,0 +1,1 @@
+ALTER TABLE medicos ALTER COLUMN ramo type varchar(15);

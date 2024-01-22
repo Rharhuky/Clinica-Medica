@@ -1,0 +1,1 @@
+ALTER TABLE medicos ADD COLUMN celular varchar(15);
