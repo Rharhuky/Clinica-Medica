@@ -4,6 +4,7 @@ import clinica.medica.api.usuario.Usuario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,6 @@ public class TokenService {
      * @return
      */
     public String token(Usuario usuario){
-        System.out.println(secretKey);
         try{
 
             Algorithm algorithm = Algorithm.HMAC256(secretKey); // parametro : string (chave secreta)
@@ -44,6 +44,30 @@ public class TokenService {
             throw new RuntimeException("Erro na criação de token JWT", ex);
         }
 
+    }
+
+    /**
+     * Recuperacoa de Subject ( descobrir quem está disparando a requisicao, basicamente.
+     * @param tokenJWT : o token enviado no cabecalho HTTP
+     * @return o subject
+     */
+    public String getSubject(String tokenJWT){
+//        return JWT.decode(tokenJWT).getSubject();
+        System.out.println(JWT.decode(tokenJWT).getSubject()); // aparentemente funciona ...
+
+        try{
+
+            var algoritmo = Algorithm.HMAC256(secretKey);
+            return JWT.require(algoritmo)
+                    .withIssuer("clinica-medica")
+                    .build()
+                    .verify(tokenJWT)
+                    .getSubject();
+        }
+
+        catch(JWTVerificationException ex){
+            throw new RuntimeException("Token JWT inválido");
+        }
     }
 
     private Instant dataExpiracao(){
