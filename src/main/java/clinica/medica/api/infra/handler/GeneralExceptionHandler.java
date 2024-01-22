@@ -23,20 +23,6 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.notFound().build();
 
     }
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<?> handlerMethodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request){
-//
-//        var errors = ex.getFieldErrors();
-//
-////        Map<String, String > errorsResponse = new HashMap<>();
-////        errors.forEach((erro) ->{
-////            errorsResponse.put(erro.getField().toString(), erro.ge)
-////        });
-//        System.out.println(errors.get(0));
-//
-//        return ResponseEntity.badRequest().build();
-//    }
-
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,

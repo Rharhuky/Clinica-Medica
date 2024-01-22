@@ -34,17 +34,12 @@ public class AutenticacaoController {
      */
     @PostMapping
     public ResponseEntity<?> login(@RequestBody DadosAutenticacao dadosAutenticacao){
-        System.out.println(new BCryptPasswordEncoder().encode(dadosAutenticacao.senha()));
-        System.out.println(dadosAutenticacao.senha());
 
         // classe que representa usuario e senha.
         // é um dto do spring. ( usernamePassowrd...)
         var token = new UsernamePasswordAuthenticationToken(dadosAutenticacao.login(), dadosAutenticacao.senha());
         // O authenticate devolve um Objeto que representa o usuário autenticado no sistema.
 //        var authentication = this.authenticationManager.authenticate(token);
-//
-//
-//
 //        return ResponseEntity.ok(tokenService.token((Usuario) authentication.getPrincipal()));
 
         var authentication = this.authenticationManager.authenticate(token);
