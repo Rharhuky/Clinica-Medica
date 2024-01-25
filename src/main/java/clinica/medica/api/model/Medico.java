@@ -9,6 +9,9 @@ import lombok.Generated;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,6 +40,9 @@ public class Medico {
 
     @Embedded
     private Endereco endereco;
+
+    @OneToMany
+    private List<Consulta> consultas = new ArrayList<>();
 
     @PrePersist
     private void setUp(){
