@@ -1,7 +1,10 @@
 package clinica.medica.api.infra.handler;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +28,21 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
+    @ExceptionHandler(JWTDecodeException.class)
+    public ResponseEntity<SimpleErrorCustomResponse> handleJWTDecodeException(JWTDecodeException exception, WebRequest request){
+
+        SimpleErrorCustomResponse simpleErrorCustomResponse = new SimpleErrorCustomResponse(request.getDescription(false), exception.getMessage(), LocalDateTime.now());
+        return ResponseEntity.badRequest().body(simpleErrorCustomResponse);
+    }
+
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResponseEntity<SimpleErrorCustomResponse> handleJWTVerificationException(JWTVerificationException exception, WebRequest request){
+
+        SimpleErrorCustomResponse errorCustomResponse = new SimpleErrorCustomResponse(request.getDescription(false), exception.getMessage(), LocalDateTime.now());
+        return ResponseEntity.badRequest().body(errorCustomResponse);
+    }
+
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
@@ -36,10 +55,14 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
             errorsResponse.put(error.getField(), error.getDefaultMessage())
         );
 
-        return ResponseEntity.badRequest().body(new ErrorCustomResponse(request.getDescription(false)  , errorsResponse, LocalTime.now()));
+        return ResponseEntity.badRequest().body(new ErrorCustomResponse(request.getDescription(false)  , errorsResponse, LocalDateTime.now()));
     }
 
-    private record ErrorCustomResponse(String path, Map<String, String> detalhes, LocalTime localTime){
+    private record ErrorCustomResponse(String path, Map<String, String> detalhes, LocalDateTime localTime){
+
+    }
+
+    private record SimpleErrorCustomResponse(String path, String detalhes, LocalDateTime localTime){
 
     }
 

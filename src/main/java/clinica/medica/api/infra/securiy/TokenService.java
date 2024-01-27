@@ -51,9 +51,9 @@ public class TokenService {
      * @param tokenJWT : o token enviado no cabecalho HTTP
      * @return o subject
      */
-    public String getSubject(String tokenJWT){
+    public String getSubject(String tokenJWT) throws JWTVerificationException{
 //        return JWT.decode(tokenJWT).getSubject();
-        System.out.println(JWT.decode(tokenJWT).getSubject()); // aparentemente funciona ...
+//        System.out.println(JWT.decode(tokenJWT).getSubject()); // aparentemente funciona ...
 
         try{
 

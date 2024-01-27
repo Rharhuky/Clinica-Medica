@@ -31,7 +31,7 @@ public class Paciente {
 
     private Boolean ativo;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "paciente")
     private List<Consulta> consultas = new ArrayList<>();
 
 //    public Paciente(DadosCadastroPaciente dados) {

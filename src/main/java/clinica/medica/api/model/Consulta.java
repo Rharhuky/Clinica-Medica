@@ -26,13 +26,13 @@ public class Consulta {
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
-    private Paciente paciente; // TODO - CRUD PACIENTE
+    private Paciente paciente; // TODO - CRUD PACIENTE - DONE
 
     private LocalDateTime data;
 
     @Column(name = "motivo_cancelamento")
     @Enumerated(EnumType.STRING)
-    private MotivoCancelamento motivoCancelamento;
+    private MotivoCancelamento motivoCancelamento; // TODO - add on sql migration - DONE
 
     public void cancelar(MotivoCancelamento motivoCancelamento){
 
