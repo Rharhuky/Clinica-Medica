@@ -8,9 +8,9 @@ public class ValidacaoPacienteAtivo {
 
     private PacienteRepository pacienteRepository;
 
-    public void validar(DadosAgendamentoConsulta dadosAgendamentoConsulta){
+    public void validar(DadosAgendamentoConsulta dados){
 
-        var pacienteIsAtivo = pacienteRepository.findAtivoById(dadosAgendamentoConsulta.idPaciente());
+        var pacienteIsAtivo = pacienteRepository.findAtivoById(dados.idPaciente());
         if(! pacienteIsAtivo)
             throw new ValidacaoException("Paciente não ativo");
 

@@ -8,12 +8,12 @@ public class ValidacaoPacienteSemOutraConsultaNoDia {
 
     private ConsultaRepository consultaRepository;
 
-    public void validar(DadosAgendamentoConsulta dadosAgendamentoConsulta){
+    public void validar(DadosAgendamentoConsulta dados){
 
-        var primerioHorario = dadosAgendamentoConsulta.data().withHour(8);
-        var ultimoHorario = dadosAgendamentoConsulta.data().withHour(18);
+        var primerioHorario = dados.data().withHour(8);
+        var ultimoHorario = dados.data().withHour(18);
         var pacienteTemOutraConsultaNoDia =
-                consultaRepository.existsByPacienteIdAndDataBetween(dadosAgendamentoConsulta.idPaciente(), primerioHorario, ultimoHorario);
+                consultaRepository.existsByPacienteIdAndDataBetween(dados.idPaciente(), primerioHorario, ultimoHorario);
 
         if(pacienteTemOutraConsultaNoDia)
             throw new ValidacaoException("Paciente já possui consulta marcada nessa data");

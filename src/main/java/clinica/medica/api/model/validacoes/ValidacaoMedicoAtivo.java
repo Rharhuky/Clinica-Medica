@@ -8,12 +8,12 @@ public class ValidacaoMedicoAtivo {
 
     private MedicoRepository medicoRepository;
 
-    public void validar(DadosAgendamentoConsulta dadosAgendamentoConsulta){
+    public void validar(DadosAgendamentoConsulta dados){
 
-        if(dadosAgendamentoConsulta.idMedico() == null)
+        if(dados.idMedico() == null)
             return;
 
-        var medicoAtivo = medicoRepository.medicoIsAtivo(dadosAgendamentoConsulta.idMedico());
+        var medicoAtivo = medicoRepository.medicoIsAtivo(dados.idMedico());
         if(!medicoAtivo)
             throw new ValidacaoException("Médico inativo!");
     }
