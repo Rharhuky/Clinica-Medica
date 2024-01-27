@@ -39,7 +39,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(new ErrorCustomResponse(request.getDescription(false)  , errorsResponse, LocalTime.now()));
     }
 
-    public record ErrorCustomResponse(String path, Map<String, String> detalhes, LocalTime localTime){
+    private record ErrorCustomResponse(String path, Map<String, String> detalhes, LocalTime localTime){
 
     }
 

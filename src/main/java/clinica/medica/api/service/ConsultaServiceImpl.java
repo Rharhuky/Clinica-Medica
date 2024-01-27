@@ -8,7 +8,9 @@ import clinica.medica.api.model.Medico;
 import clinica.medica.api.model.Paciente;
 import clinica.medica.api.model.Ramo;
 import clinica.medica.api.model.dto.DadosAgendamentoConsulta;
+import clinica.medica.api.model.dto.DadosCancelamentoConsulta;
 import clinica.medica.api.model.dto.DetalhesConsulta;
+import clinica.medica.api.model.dto.MotivoCancelamento;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 
 @Service
+@Transactional(readOnly = true)
 public class ConsultaServiceImpl implements ConsultaService{
 
     private final ConsultaRepository consultaRepository;
@@ -27,7 +30,7 @@ public class ConsultaServiceImpl implements ConsultaService{
 
     @Override
     @Transactional
-    public DetalhesConsulta agendarConsulta(DadosAgendamentoConsulta dadosAgendamentoConsulta) {
+    public Consulta agendarConsulta(DadosAgendamentoConsulta dadosAgendamentoConsulta) {
 
         Paciente paciente = pacienteRepository.findById(dadosAgendamentoConsulta.idPaciente()).orElseThrow(() -> new RuntimeException("Paciente nao encontrado"));
         Medico medico = buscarMedicoQualquer(dadosAgendamentoConsulta);
@@ -35,9 +38,9 @@ public class ConsultaServiceImpl implements ConsultaService{
         Consulta novaConsulta = new Consulta();
         novaConsulta.setMedico(medico);
         novaConsulta.setPaciente(paciente);
+        novaConsulta.setData(dadosAgendamentoConsulta.data());
 
-//        return new DetalhesConsulta(this.consultaRepository.save(novaConsulta));
-        return null;
+        return this.consultaRepository.save(novaConsulta);
     }
 
 
@@ -54,5 +57,13 @@ public class ConsultaServiceImpl implements ConsultaService{
         return medicoRepository.escolherMedicoDisponivel(dadosAgendamentoConsulta.ramo(), dadosAgendamentoConsulta.data());
     }
 
+    @Override
+    @Transactional
+    public void cancelarConsulta(DadosCancelamentoConsulta dadosCancelamentoConsulta) {
 
+        var consulta = this.consultaRepository.findById(dadosCancelamentoConsulta.idConsulta()).orElseThrow(RuntimeException::new);
+        consulta.setMotivoCancelamento(dadosCancelamentoConsulta.motivoCancelamento());
+
+
+    }
 }

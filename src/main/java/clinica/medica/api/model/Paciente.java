@@ -55,4 +55,9 @@ public class Paciente {
 //        }
 //
 //    }
+
+    @PrePersist
+    private void activePaciente(){
+        this.ativo = true;
+    }
 }

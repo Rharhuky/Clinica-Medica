@@ -20,7 +20,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
     @Query(value = """
                 SELECT * FROM medicos WHERE ativo=t
-                AND ramo=:especialidade
+                AND especialidade=:especialidade
                 AND NOT EXISTS(
                     SELECT * FROM consultas
                     WHERE consultas.data=:data
@@ -28,6 +28,14 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
                 ORDER BY random() LIMIT 1
             """, nativeQuery = true)
     Medico escolherMedicoDisponivel(@Param(value = "especialidade") Ramo ramo, @Param(value = "data") LocalDateTime data);
+
+
+    @Query(value = """
+           SELECT ativo FROM medicos
+           WHERE medico_id=:id
+            """,
+            nativeQuery = true)
+    Boolean medicoIsAtivo(@Param(value = "id") Long id);
 }
 
 /**
@@ -41,3 +49,4 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
  * ORDER BY random() LIMIT 1
  *
  */
+

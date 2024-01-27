@@ -1,10 +1,10 @@
 package clinica.medica.api.model;
 
+import clinica.medica.api.model.dto.MotivoCancelamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.users.GenericRole;
 
 import java.time.LocalDateTime;
 
@@ -29,5 +29,15 @@ public class Consulta {
     private Paciente paciente; // TODO - CRUD PACIENTE
 
     private LocalDateTime data;
+
+    @Column(name = "motivo_cancelamento")
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamento motivoCancelamento;
+
+    public void cancelar(MotivoCancelamento motivoCancelamento){
+
+        this.motivoCancelamento = motivoCancelamento;
+
+    }
 
 }
