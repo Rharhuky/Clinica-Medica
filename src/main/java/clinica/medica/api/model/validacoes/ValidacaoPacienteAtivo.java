@@ -3,10 +3,14 @@ package clinica.medica.api.model.validacoes;
 import clinica.medica.api.infra.handler.ValidacaoException;
 import clinica.medica.api.infra.repository.PacienteRepository;
 import clinica.medica.api.model.dto.DadosAgendamentoConsulta;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-public class ValidacaoPacienteAtivo {
+@RequiredArgsConstructor
+@Service
+public class ValidacaoPacienteAtivo implements ValidadorAgendamentoConsulta{
 
-    private PacienteRepository pacienteRepository;
+    private final PacienteRepository pacienteRepository;
 
     public void validar(DadosAgendamentoConsulta dados){
 

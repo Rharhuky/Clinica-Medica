@@ -11,10 +11,12 @@ import clinica.medica.api.model.dto.DadosAgendamentoConsulta;
 import clinica.medica.api.model.dto.DadosCancelamentoConsulta;
 import clinica.medica.api.model.dto.DetalhesConsulta;
 import clinica.medica.api.model.dto.MotivoCancelamento;
+import clinica.medica.api.model.validacoes.ValidadorAgendamentoConsulta;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class ConsultaServiceImpl implements ConsultaService{
     private final ConsultaRepository consultaRepository;
     private final MedicoRepository medicoRepository;
     private final PacienteRepository pacienteRepository;
+    private final List<ValidadorAgendamentoConsulta> validadores;
 
 
     @Override
@@ -34,6 +37,8 @@ public class ConsultaServiceImpl implements ConsultaService{
 
         Paciente paciente = pacienteRepository.findById(dadosAgendamentoConsulta.idPaciente()).orElseThrow(() -> new RuntimeException("Paciente nao encontrado"));
         Medico medico = buscarMedicoQualquer(dadosAgendamentoConsulta);
+
+        validadores.forEach((validador) -> validador.validar(dadosAgendamentoConsulta));
 
         Consulta novaConsulta = new Consulta();
         novaConsulta.setMedico(medico);

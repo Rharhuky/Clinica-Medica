@@ -2,10 +2,12 @@ package clinica.medica.api.model.validacoes;
 
 import clinica.medica.api.infra.handler.ValidacaoException;
 import clinica.medica.api.model.dto.DadosAgendamentoConsulta;
+import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 
-public class ValidacaoHorarioFuncionamento {
+@Service
+public class ValidacaoHorarioFuncionamento implements ValidadorAgendamentoConsulta{
 
  private static final Float horarioAberturaClinica = 8f;
  private static final Float horarioFechamentoClinica = 18f;
