@@ -1,4 +1,4 @@
-package clinica.medica.api.service;
+package clinica.medica.api.service.impl;
 
 import clinica.medica.api.model.dto.DadosAtualizarMedico;
 import clinica.medica.api.model.Endereco;
@@ -6,6 +6,7 @@ import clinica.medica.api.model.Medico;
 import clinica.medica.api.model.dto.DadosListagemMedicos;
 import clinica.medica.api.model.dto.MedicoDTO;
 import clinica.medica.api.infra.repository.MedicoRepository;
+import clinica.medica.api.service.interfaces.MedicoService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 
 @Service
-public class MedicoServiceImpl implements MedicoService{
+public class MedicoServiceImpl implements MedicoService {
 
     private final MedicoRepository medicoRepository;
     private final ModelMapper modelMapper;

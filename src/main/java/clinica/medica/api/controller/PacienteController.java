@@ -2,7 +2,7 @@ package clinica.medica.api.controller;
 
 import clinica.medica.api.model.Paciente;
 import clinica.medica.api.model.dto.DadosRegistroPaciente;
-import clinica.medica.api.service.PacienteService;
+import clinica.medica.api.service.interfaces.PacienteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

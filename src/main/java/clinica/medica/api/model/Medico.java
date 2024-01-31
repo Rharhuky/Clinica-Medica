@@ -33,6 +33,7 @@ public class Medico {
     private String celular;
 
     private boolean ativo;
+
     private String email;
 
     @Enumerated(value = EnumType.STRING)
@@ -41,7 +42,7 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
-    @OneToMany
+    @OneToMany(mappedBy = "medico", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Consulta> consultas = new ArrayList<>();
 
     @PrePersist

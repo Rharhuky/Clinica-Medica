@@ -19,15 +19,16 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     void disableMedicoById(@Param(value = "id") Long id);
 
     @Query(value = """
-                SELECT * FROM medicos WHERE ativo=t
-                AND especialidade=:especialidade
+                SELECT * FROM medicos WHERE ativo=true
+                AND ramo=:ramo
                 AND NOT EXISTS(
                     SELECT * FROM consultas
                     WHERE consultas.data=:data
+                    AND motivo_cancelamento is null
                 )
                 ORDER BY random() LIMIT 1
             """, nativeQuery = true)
-    Medico escolherMedicoDisponivel(@Param(value = "especialidade") Ramo ramo, @Param(value = "data") LocalDateTime data);
+    Optional<Medico> escolherMedicoDisponivel(@Param(value = "ramo") String ramo, @Param(value = "data") LocalDateTime data);
 
 
     @Query(value = """

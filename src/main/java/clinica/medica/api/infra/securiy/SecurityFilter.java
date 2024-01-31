@@ -1,8 +1,6 @@
 package clinica.medica.api.infra.securiy;
 
-import clinica.medica.api.service.MedicoService;
 import clinica.medica.api.usuario.UsuarioRepository;
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

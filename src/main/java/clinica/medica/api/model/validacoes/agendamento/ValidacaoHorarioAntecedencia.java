@@ -1,14 +1,13 @@
-package clinica.medica.api.model.validacoes;
+package clinica.medica.api.model.validacoes.agendamento;
 
 import clinica.medica.api.infra.handler.ValidacaoException;
 import clinica.medica.api.model.dto.DadosAgendamentoConsulta;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-@Service
+@Service("ValidacaoHorarioAntecedenciaAgendamento")
 public class ValidacaoHorarioAntecedencia implements ValidadorAgendamentoConsulta {
 
     // Validacao em classes separadas ...
@@ -19,7 +18,7 @@ public class ValidacaoHorarioAntecedencia implements ValidadorAgendamentoConsult
         var agora = LocalDateTime.now();
         var diferencaMinutos = Duration.between(agora, dataConsulta).toMinutes();
 
-        if(diferencaMinutos > 30){
+        if(diferencaMinutos < 30){
             throw new ValidacaoException("Necessária antecedência mńimia, para agendamento de consulta, de 30 minutos");
         }
     }

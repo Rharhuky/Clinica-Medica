@@ -1,4 +1,4 @@
-package clinica.medica.api.service;
+package clinica.medica.api.service.interfaces;
 
 import clinica.medica.api.model.dto.DadosAtualizarMedico;
 import clinica.medica.api.model.dto.DadosListagemMedicos;

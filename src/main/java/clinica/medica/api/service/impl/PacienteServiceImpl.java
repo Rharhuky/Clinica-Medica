@@ -1,8 +1,9 @@
-package clinica.medica.api.service;
+package clinica.medica.api.service.impl;
 
 import clinica.medica.api.infra.repository.PacienteRepository;
 import clinica.medica.api.model.Paciente;
 import clinica.medica.api.model.dto.DadosRegistroPaciente;
+import clinica.medica.api.service.interfaces.PacienteService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class PacienteServiceImpl implements PacienteService{
+public class PacienteServiceImpl implements PacienteService {
 
     private final PacienteRepository pacienteRepository;
     private final ModelMapper modelMapper;

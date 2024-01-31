@@ -1,4 +1,4 @@
-package clinica.medica.api.service;
+package clinica.medica.api.service.interfaces;
 
 import clinica.medica.api.model.Paciente;
 import clinica.medica.api.model.dto.DadosRegistroPaciente;

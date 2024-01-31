@@ -31,7 +31,7 @@ public class Paciente {
 
     private Boolean ativo;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "paciente")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Consulta> consultas = new ArrayList<>();
 
 //    public Paciente(DadosCadastroPaciente dados) {

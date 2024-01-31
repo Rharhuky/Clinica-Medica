@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
 @Entity
 @Table(name = "consultas")
 public class Consulta {
@@ -26,7 +25,7 @@ public class Consulta {
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
-    private Paciente paciente; // TODO - CRUD PACIENTE - DONE
+    private Paciente paciente;
 
     private LocalDateTime data;
 

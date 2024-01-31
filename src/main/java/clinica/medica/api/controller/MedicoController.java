@@ -3,12 +3,11 @@ package clinica.medica.api.controller;
 import clinica.medica.api.model.dto.DadosAtualizarMedico;
 import clinica.medica.api.model.dto.DadosListagemMedicos;
 import clinica.medica.api.model.dto.MedicoDTO;
-import clinica.medica.api.service.MedicoService;
+import clinica.medica.api.service.interfaces.MedicoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 

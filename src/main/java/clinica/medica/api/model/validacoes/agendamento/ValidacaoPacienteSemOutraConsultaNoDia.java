@@ -1,4 +1,4 @@
-package clinica.medica.api.model.validacoes;
+package clinica.medica.api.model.validacoes.agendamento;
 
 import clinica.medica.api.infra.handler.ValidacaoException;
 import clinica.medica.api.infra.repository.ConsultaRepository;
