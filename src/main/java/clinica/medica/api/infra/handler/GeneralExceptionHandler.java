@@ -23,7 +23,7 @@ import java.util.Map;
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler
+    @ExceptionHandler(ValidacaoException.class)
     public ResponseEntity<?> handleValidationException(ValidacaoException exception, WebRequest request){
 
         SimpleErrorCustomResponse errorCustomResponse =
