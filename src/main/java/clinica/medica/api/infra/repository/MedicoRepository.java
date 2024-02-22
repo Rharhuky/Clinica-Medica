@@ -39,15 +39,3 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     Boolean medicoIsAtivo(@Param(value = "id") Long id);
 }
 
-/**
- *
- * SELECT * FROM medicos WHERE ativo='true'
- * AND ramo='cardiologia'
- * AND NOT EXISTS(
- * SELECT * FROM consultas
- * WHERE consultas.data='2022-11-10 10:22'
- *  )
- * ORDER BY random() LIMIT 1
- *
- */
-

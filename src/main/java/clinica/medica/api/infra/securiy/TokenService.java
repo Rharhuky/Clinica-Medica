@@ -5,8 +5,12 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponse;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -23,10 +27,6 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secretKey;
 
-    /**
-     * Geração do token, utiliza-se a biblioteca adicionada(auth0).
-     * @return
-     */
     public String token(Usuario usuario){
         try{
 
@@ -46,28 +46,16 @@ public class TokenService {
 
     }
 
-    /**
-     * Recuperacoa de Subject ( descobrir quem está disparando a requisicao, basicamente.
-     * @param tokenJWT : o token enviado no cabecalho HTTP
-     * @return o subject
-     */
-    public String getSubject(String tokenJWT){
-//        return JWT.decode(tokenJWT).getSubject();
-//        System.out.println(JWT.decode(tokenJWT).getSubject()); // aparentemente funciona ...
+    public String getSubject(String tokenJWT) throws JWTVerificationException{
 
-        try{
 
-            var algoritmo = Algorithm.HMAC256(secretKey);
-            return JWT.require(algoritmo)
-                    .withIssuer("clinica-medica")
-                    .build()
-                    .verify(tokenJWT)
-                    .getSubject();
-        }
+        var algoritmo = Algorithm.HMAC256(secretKey);
+        return JWT.require(algoritmo)
+                .withIssuer("clinica-medica")
+                .build()
+                .verify(tokenJWT)
+                .getSubject();
 
-        catch(JWTVerificationException ex){
-            throw new RuntimeException("Token JWT inválido");
-        }
     }
 
     private Instant dataExpiracao(){

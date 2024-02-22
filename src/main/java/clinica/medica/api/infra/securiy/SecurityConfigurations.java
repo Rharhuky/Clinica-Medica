@@ -36,18 +36,16 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(request -> {
 
                     request.requestMatchers(HttpMethod.POST,"/login").permitAll();
+                    request.requestMatchers("/v3/api-docs/**",  "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     request.anyRequest().authenticated();
 
                 })
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // necessario colocar o meu filtor antes do filtro do pring
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
     }
 
     @Bean
-    /**
-     * Classe que representa o algoritmo de hash de senha
-     */
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
