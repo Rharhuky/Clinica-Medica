@@ -45,6 +45,15 @@ public class Medico {
     @OneToMany(mappedBy = "medico", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Consulta> consultas = new ArrayList<>();
 
+    public Medico(MedicoDTO medicoDTO) {
+        this.ramo = medicoDTO.getRamo();
+        this.endereco = new Endereco(medicoDTO.getEndereco());
+        this.crm = medicoDTO.getCrm();
+        this.nome = medicoDTO.getNome();
+        this.email = medicoDTO.getEmail();
+        this.cpf = medicoDTO.getCpf();
+    }
+
     @PrePersist
     private void setUp(){
         this.ativo = true;

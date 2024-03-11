@@ -33,6 +33,12 @@ public class Consulta {
     @Enumerated(EnumType.STRING)
     private MotivoCancelamento motivoCancelamento; // TODO - add on sql migration - DONE
 
+    public Consulta(Long id, Medico medico, Paciente paciente, LocalDateTime data) {
+        this.medico = medico;
+        this.paciente = paciente;
+        this.data = data;
+    }
+
     public void cancelar(MotivoCancelamento motivoCancelamento){
 
         this.motivoCancelamento = motivoCancelamento;

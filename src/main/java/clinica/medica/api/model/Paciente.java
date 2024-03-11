@@ -1,5 +1,6 @@
 package clinica.medica.api.model;
 
+import clinica.medica.api.model.dto.DadosRegistroPaciente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,10 +22,8 @@ public class Paciente {
     private Long id;
     private String nome;
     private String email;
-
-    private String telefone;
-
     private String cpf;
+    private String telefone;
 
     @Embedded
     private Endereco endereco;
@@ -33,6 +32,14 @@ public class Paciente {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Consulta> consultas = new ArrayList<>();
+
+    public Paciente(DadosRegistroPaciente dadosRegistroPaciente) {
+        this.nome = dadosRegistroPaciente.getNome();
+        this.cpf = dadosRegistroPaciente.getCpf();
+        this.telefone = dadosRegistroPaciente.getTelefone();
+        this.email = dadosRegistroPaciente.getEmail();
+        this.endereco = new Endereco(dadosRegistroPaciente.getEndereco());
+    }
 
 //    public Paciente(DadosCadastroPaciente dados) {
 //        this.ativo = true;

@@ -1,5 +1,6 @@
 package clinica.medica.api.model;
 
+import clinica.medica.api.model.dto.EnderecoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,4 +23,12 @@ public class Endereco {
     private String cidade;
     private String numero;
 
+
+    public Endereco(EnderecoDTO endereco) {
+        this.logradouro = endereco.getLogradouro();
+        this.bairro = endereco.getBairro();
+        this.cep = endereco.getCep();
+        this.cidade = endereco.getCidade();
+        this.numero = endereco.getNumero();
+    }
 }

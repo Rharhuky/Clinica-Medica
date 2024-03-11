@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class DadosRegistroPaciente{
+
+    private Long id;
+
     @NotBlank
     private String nome;
     @NotBlank
